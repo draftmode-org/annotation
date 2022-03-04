@@ -5,6 +5,7 @@ use ReflectionMethod;
 use ReflectionNamedType;
 use ReflectionParameter;
 use ReflectionProperty;
+use Terrazza\Component\ReflectionClass\ClassNameResolver;
 use Terrazza\Component\ReflectionClass\IClassNameResolver;
 
 class AnnotationFactory implements IAnnotationFactory {
@@ -13,9 +14,9 @@ class AnnotationFactory implements IAnnotationFactory {
     private array $builtInTypes;
     CONST BUILT_IN_TYPES                            = ["int", "integer", "float", "double", "string", "array", "NULL"];
 
-    public function __construct(LoggerInterface $logger, IClassNameResolver $classNameResolver, ?array $builtInTypes=null) {
+    public function __construct(LoggerInterface $logger, ?array $builtInTypes=null) {
         $this->logger                               = $logger;
-        $this->classNameResolver                    = $classNameResolver;
+        $this->classNameResolver                    = new ClassNameResolver;
         $this->builtInTypes                         = $builtInTypes ?? self::BUILT_IN_TYPES;
     }
 
