@@ -3,23 +3,10 @@ namespace Terrazza\Component\Tests\Annotation;
 
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
-use Terrazza\Component\Annotation\AnnotationFactory;
-use Terrazza\Component\Annotation\IAnnotationFactory;
-use Terrazza\Component\Annotation\Tests\_Mocks\LoggerMock;
 use Terrazza\Component\Annotation\Tests\_Examples\SerializerRealLifeUUID;
-use Terrazza\Component\ReflectionClass\ClassNameResolver;
+use Terrazza\Component\Annotation\Tests\_Mocks\AnnotationFactory;
 
 class AnnotationPropertyTest extends TestCase {
-    /**
-     * @param bool $log
-     * @return IAnnotationFactory
-     */
-    private function get(bool $log=false) : IAnnotationFactory {
-        return new AnnotationFactory(
-            LoggerMock::get($log), new ClassNameResolver()
-        );
-    }
-
     private ?int $intTypeOptional;
     /** @var int|null */
     private $intOptional;
@@ -45,7 +32,7 @@ class AnnotationPropertyTest extends TestCase {
 
     function testAnnotationProperty() {
         $ref            = new ReflectionClass($this);
-        $property       = $this->get()->getAnnotationProperty($ref->getProperty($name = "intTypeOptional"));
+        $property       = AnnotationFactory::get()->getAnnotationProperty($ref->getProperty($name = "intTypeOptional"));
         $this->assertEquals([
             false,
             true,
@@ -57,7 +44,7 @@ class AnnotationPropertyTest extends TestCase {
             $property->isOptional(),
             $property->getType(),
         ], $name);
-        $property       = $this->get()->getAnnotationProperty($ref->getProperty($name = "intOptional"));
+        $property       = AnnotationFactory::get()->getAnnotationProperty($ref->getProperty($name = "intOptional"));
         $this->assertEquals([
             false,
             true,
@@ -70,7 +57,7 @@ class AnnotationPropertyTest extends TestCase {
             $property->getType(),
         ], $name);
 
-        $property       = $this->get()->getAnnotationProperty($ref->getProperty($name = "arrayTypeRequired"));
+        $property       = AnnotationFactory::get()->getAnnotationProperty($ref->getProperty($name = "arrayTypeRequired"));
         $this->assertEquals([
             true,
             true,
@@ -82,7 +69,7 @@ class AnnotationPropertyTest extends TestCase {
             $property->isOptional(),
             $property->getType(),
         ], $name);
-        $property       = $this->get()->getAnnotationProperty($ref->getProperty($name = "arrayRequired"));
+        $property       = AnnotationFactory::get()->getAnnotationProperty($ref->getProperty($name = "arrayRequired"));
         $this->assertEquals([
             true,
             true,
@@ -95,7 +82,7 @@ class AnnotationPropertyTest extends TestCase {
             $property->getType(),
         ], $name);
 
-        $property       = $this->get()->getAnnotationProperty($ref->getProperty($name = "classTypeRequired"));
+        $property       = AnnotationFactory::get()->getAnnotationProperty($ref->getProperty($name = "classTypeRequired"));
         $this->assertEquals([
             false,
             false,
@@ -107,7 +94,7 @@ class AnnotationPropertyTest extends TestCase {
             $property->isOptional(),
             $property->getType(),
         ], $name);
-        $property       = $this->get()->getAnnotationProperty($ref->getProperty($name = "classRequired"));
+        $property       = AnnotationFactory::get()->getAnnotationProperty($ref->getProperty($name = "classRequired"));
         $this->assertEquals([
             false,
             false,
@@ -120,7 +107,7 @@ class AnnotationPropertyTest extends TestCase {
             $property->getType(),
         ], $name);
 
-        $property       = $this->get()->getAnnotationProperty($ref->getProperty($name = "arrayAsBuiltIn"));
+        $property       = AnnotationFactory::get()->getAnnotationProperty($ref->getProperty($name = "arrayAsBuiltIn"));
         $this->assertEquals([
             true,
             true,
@@ -132,7 +119,7 @@ class AnnotationPropertyTest extends TestCase {
             $property->isOptional(),
             $property->getType(),
         ], $name);
-        $property       = $this->get()->getAnnotationProperty($ref->getProperty($name = "arrayAsBuiltInOptional"));
+        $property       = AnnotationFactory::get()->getAnnotationProperty($ref->getProperty($name = "arrayAsBuiltInOptional"));
         $this->assertEquals([
             true,
             true,
@@ -146,7 +133,7 @@ class AnnotationPropertyTest extends TestCase {
         ], $name);
 
 
-        $property       = $this->get()->getAnnotationProperty($ref->getProperty($name = "arrayAsClass"));
+        $property       = AnnotationFactory::get()->getAnnotationProperty($ref->getProperty($name = "arrayAsClass"));
         $this->assertEquals([
             true,
             false,
@@ -158,7 +145,7 @@ class AnnotationPropertyTest extends TestCase {
             $property->isOptional(),
             $property->getType(),
         ], $name);
-        $property       = $this->get()->getAnnotationProperty($ref->getProperty($name = "arrayTypeAsClass"));
+        $property       = AnnotationFactory::get()->getAnnotationProperty($ref->getProperty($name = "arrayTypeAsClass"));
         $this->assertEquals([
             true,
             false,

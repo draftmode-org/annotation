@@ -3,23 +3,10 @@ namespace Terrazza\Component\Tests\Annotation;
 
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
-use Terrazza\Component\Annotation\AnnotationFactory;
-use Terrazza\Component\Annotation\IAnnotationFactory;
 use Terrazza\Component\Annotation\AnnotationReturnType;
-use Terrazza\Component\Annotation\Tests\_Mocks\LoggerMock;
-use Terrazza\Component\ReflectionClass\ClassNameResolver;
+use Terrazza\Component\Annotation\Tests\_Mocks\AnnotationFactory;
 
 class AnnotationReturnTypeTest extends TestCase {
-    /**
-     * @param bool $log
-     * @return IAnnotationFactory
-     */
-    private function get(bool $log=false) : IAnnotationFactory {
-        return new AnnotationFactory(
-            LoggerMock::get($log),new ClassNameResolver()
-        );
-    }
-
     protected function returnTypeBuiltIn() : int { return 1;}
     protected function returnTypeBuiltInOptional() : ?int { return 1;}
     protected function returnTypeArray() : array { return [];}
@@ -68,7 +55,7 @@ class AnnotationReturnTypeTest extends TestCase {
     function testAnnotationReturnType() {
         $ref            = new ReflectionClass($this);
 
-        $returnType     = $this->get()->getAnnotationReturnType($ref->getMethod("returnTypeBuiltIn"));
+        $returnType     = AnnotationFactory::get()->getAnnotationReturnType($ref->getMethod("returnTypeBuiltIn"));
         $this->assertEquals([
             false,
             true,
@@ -80,7 +67,7 @@ class AnnotationReturnTypeTest extends TestCase {
             $returnType->isOptional(),
             $returnType->getType(),
         ], "returnTypeBuiltIn");
-        $returnType     = $this->get()->getAnnotationReturnType($ref->getMethod("returnBuiltIn"));
+        $returnType     = AnnotationFactory::get()->getAnnotationReturnType($ref->getMethod("returnBuiltIn"));
         $this->assertEquals([
             false,
             true,
@@ -93,7 +80,7 @@ class AnnotationReturnTypeTest extends TestCase {
             $returnType->getType(),
         ], "returnTypeBuiltIn");
 
-        $returnType     = $this->get()->getAnnotationReturnType($ref->getMethod("returnTypeBuiltInOptional"));
+        $returnType     = AnnotationFactory::get()->getAnnotationReturnType($ref->getMethod("returnTypeBuiltInOptional"));
         $this->assertEquals([
             false,
             true,
@@ -105,7 +92,7 @@ class AnnotationReturnTypeTest extends TestCase {
             $returnType->isOptional(),
             $returnType->getType(),
         ], "returnTypeBuiltInOptional");
-        $returnType     = $this->get()->getAnnotationReturnType($ref->getMethod("returnBuiltInOptional"));
+        $returnType     = AnnotationFactory::get()->getAnnotationReturnType($ref->getMethod("returnBuiltInOptional"));
         $this->assertEquals([
             false,
             true,
@@ -118,7 +105,7 @@ class AnnotationReturnTypeTest extends TestCase {
             $returnType->getType(),
         ], "returnBuiltInOptional");
 
-        $returnType     = $this->get()->getAnnotationReturnType($ref->getMethod("returnTypeArray"));
+        $returnType     = AnnotationFactory::get()->getAnnotationReturnType($ref->getMethod("returnTypeArray"));
         $this->assertEquals([
             true,
             true,
@@ -130,7 +117,7 @@ class AnnotationReturnTypeTest extends TestCase {
             $returnType->isOptional(),
             $returnType->getType(),
         ], "returnTypeArray");
-        $returnType     = $this->get()->getAnnotationReturnType($ref->getMethod("returnArray"));
+        $returnType     = AnnotationFactory::get()->getAnnotationReturnType($ref->getMethod("returnArray"));
         $this->assertEquals([
             true,
             true,
@@ -143,7 +130,7 @@ class AnnotationReturnTypeTest extends TestCase {
             $returnType->getType(),
         ], "returnArray");
 
-        $returnType     = $this->get()->getAnnotationReturnType($ref->getMethod("returnTypeArrayOptional"));
+        $returnType     = AnnotationFactory::get()->getAnnotationReturnType($ref->getMethod("returnTypeArrayOptional"));
         $this->assertEquals([
             true,
             true,
@@ -155,7 +142,7 @@ class AnnotationReturnTypeTest extends TestCase {
             $returnType->isOptional(),
             $returnType->getType(),
         ], "returnTypeArrayOptional");
-        $returnType     = $this->get()->getAnnotationReturnType($ref->getMethod("returnArrayOptional"));
+        $returnType     = AnnotationFactory::get()->getAnnotationReturnType($ref->getMethod("returnArrayOptional"));
         $this->assertEquals([
             true,
             true,
@@ -168,7 +155,7 @@ class AnnotationReturnTypeTest extends TestCase {
             $returnType->getType(),
         ], "returnArrayOptional");
 
-        $returnType     = $this->get()->getAnnotationReturnType($ref->getMethod("returnArrayAsBuiltIn"));
+        $returnType     = AnnotationFactory::get()->getAnnotationReturnType($ref->getMethod("returnArrayAsBuiltIn"));
         $this->assertEquals([
             true,
             true,
@@ -180,7 +167,7 @@ class AnnotationReturnTypeTest extends TestCase {
             $returnType->isOptional(),
             $returnType->getType(),
         ], "returnArrayAsBuiltIn");
-        $returnType     = $this->get()->getAnnotationReturnType($ref->getMethod("returnArrayAsBuiltInOptional"));
+        $returnType     = AnnotationFactory::get()->getAnnotationReturnType($ref->getMethod("returnArrayAsBuiltInOptional"));
         $this->assertEquals([
             true,
             true,
@@ -193,7 +180,7 @@ class AnnotationReturnTypeTest extends TestCase {
             $returnType->getType(),
         ], "returnArrayAsBuiltInOptional");
 
-        $returnType     = $this->get()->getAnnotationReturnType($ref->getMethod("returnTypeArrayAsClass"));
+        $returnType     = AnnotationFactory::get()->getAnnotationReturnType($ref->getMethod("returnTypeArrayAsClass"));
         $this->assertEquals([
             true,
             false,
@@ -206,7 +193,7 @@ class AnnotationReturnTypeTest extends TestCase {
             $returnType->getType(),
         ], "returnTypeArrayAsClass");
 
-        $returnType     = $this->get()->getAnnotationReturnType($ref->getMethod("returnMixedOptional"));
+        $returnType     = AnnotationFactory::get()->getAnnotationReturnType($ref->getMethod("returnMixedOptional"));
         $this->assertEquals([
             false,
             false,

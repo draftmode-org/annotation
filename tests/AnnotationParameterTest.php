@@ -6,24 +6,11 @@ use ReflectionClass;
 use ReflectionException;
 use ReflectionMethod;
 use ReflectionParameter;
-use Terrazza\Component\Annotation\AnnotationFactory;
-use Terrazza\Component\Annotation\IAnnotationFactory;
 use Terrazza\Component\Annotation\AnnotationParameter;
-use Terrazza\Component\Annotation\Tests\_Mocks\LoggerMock;
 use Terrazza\Component\Annotation\Tests\_Examples\SerializerRealLifeUUID;
-use Terrazza\Component\ReflectionClass\ClassNameResolver;
+use Terrazza\Component\Annotation\Tests\_Mocks\AnnotationFactory;
 
 class AnnotationParameterTest extends TestCase {
-
-    /**
-     * @param bool $log
-     * @return IAnnotationFactory
-     */
-    private function get(bool $log=false) : IAnnotationFactory {
-        return new AnnotationFactory(
-            LoggerMock::get($log), new ClassNameResolver()
-        );
-    }
 
     function testClassEmpty() {
         $object = new AnnotationParameter("name");
@@ -80,7 +67,7 @@ class AnnotationParameterTest extends TestCase {
     function testAnnotationParameterWithContent() {
         $method         = $this->getMethod($methodName = "simpleParamWithContent");
         $parameter      = $this->getParameter($method, $parameterName="date");
-        $property       = $this->get()->getAnnotationParameter($method, $parameter);
+        $property       = AnnotationFactory::get()->getAnnotationParameter($method, $parameter);
         $this->assertEquals([
             false,
             false,
@@ -116,7 +103,7 @@ class AnnotationParameterTest extends TestCase {
     function testAnnotationParameterSimple() {
         $method         = $this->getMethod($methodName = "simpleType");
         $parameter      = $this->getParameter($method, $parameterName="intRequired");
-        $property       = $this->get()->getAnnotationParameter($method, $parameter);
+        $property       = AnnotationFactory::get()->getAnnotationParameter($method, $parameter);
         $this->assertEquals([
             false,
             false,
@@ -136,7 +123,7 @@ class AnnotationParameterTest extends TestCase {
         ], $methodName.":".$parameterName);
 
         $parameter      = $this->getParameter($method, $parameterName="intDefault");
-        $property       = $this->get()->getAnnotationParameter($method, $parameter);
+        $property       = AnnotationFactory::get()->getAnnotationParameter($method, $parameter);
         $this->assertEquals([
             false,
             false,
@@ -156,7 +143,7 @@ class AnnotationParameterTest extends TestCase {
         ], $methodName.":".$parameterName);
 
         $parameter      = $this->getParameter($method, $parameterName="arrayRequired");
-        $property       = $this->get()->getAnnotationParameter($method, $parameter);
+        $property       = AnnotationFactory::get()->getAnnotationParameter($method, $parameter);
         $this->assertEquals([
             true,
             false,
@@ -176,7 +163,7 @@ class AnnotationParameterTest extends TestCase {
         ], $methodName.":".$parameterName);
 
         $parameter      = $this->getParameter($method, $parameterName="arrayInt");
-        $property       = $this->get()->getAnnotationParameter($method, $parameter);
+        $property       = AnnotationFactory::get()->getAnnotationParameter($method, $parameter);
         $this->assertEquals([
             true,
             false,
@@ -196,7 +183,7 @@ class AnnotationParameterTest extends TestCase {
         ], $methodName.":".$parameterName);
 
         $parameter      = $this->getParameter($method, $parameterName="arrayClass");
-        $property       = $this->get()->getAnnotationParameter($method, $parameter);
+        $property       = AnnotationFactory::get()->getAnnotationParameter($method, $parameter);
         $this->assertEquals([
             true,
             false,
@@ -216,7 +203,7 @@ class AnnotationParameterTest extends TestCase {
         ], $methodName.":".$parameterName);
 
         $parameter      = $this->getParameter($method, $parameterName="classOptional");
-        $property       = $this->get()->getAnnotationParameter($method, $parameter);
+        $property       = AnnotationFactory::get()->getAnnotationParameter($method, $parameter);
         $this->assertEquals([
             false,
             false,
@@ -236,7 +223,7 @@ class AnnotationParameterTest extends TestCase {
         ], $methodName.":".$parameterName);
 
         $parameter      = $this->getParameter($method, $parameterName="variadicInt");
-        $property       = $this->get()->getAnnotationParameter($method, $parameter);
+        $property       = AnnotationFactory::get()->getAnnotationParameter($method, $parameter);
         $this->assertEquals([
             true,
             true,
@@ -269,7 +256,7 @@ class AnnotationParameterTest extends TestCase {
         $method         = $this->getMethod($methodName = "simpleVariadic");
 
         $parameter      = $this->getParameter($method, $parameterName="intRequired");
-        $property       = $this->get()->getAnnotationParameter($method, $parameter);
+        $property       = AnnotationFactory::get()->getAnnotationParameter($method, $parameter);
         $this->assertEquals([
             false,
             false,
@@ -289,7 +276,7 @@ class AnnotationParameterTest extends TestCase {
         ], $methodName.":".$parameterName);
 
         $parameter      = $this->getParameter($method, $parameterName="variadicClass");
-        $property       = $this->get()->getAnnotationParameter($method, $parameter);
+        $property       = AnnotationFactory::get()->getAnnotationParameter($method, $parameter);
         $this->assertEquals([
             true,
             true,
