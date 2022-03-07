@@ -15,11 +15,11 @@
     ],
     "require": {
         "php": ">=7.4",
+        "terrazza/reflectionclass": "dev-main",
         "psr/log": "1.1.*"
     },
     "require-dev" : {
         "phpunit/phpunit": "^9.3",
-        "terrazza/reflectionclass": "dev-main",
         "terrazza/logger": "dev-main"
     },
     "autoload": {
