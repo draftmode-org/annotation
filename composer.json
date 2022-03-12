@@ -1,6 +1,6 @@
 {
     "name": "terrazza/annotation",
-    "type" : "library",
+    "type" : "cakephp-plugin",
     "version": "1.0.0",
     "description": "Terrazza Component Annotation",
     "license": "MIT",
@@ -15,7 +15,6 @@
     ],
     "require": {
         "php": ">=7.4",
-        "composer/installers": "~1.0",
         "terrazza/reflectionclass": "dev-main",
         "psr/log": "1.1.*"
     },
