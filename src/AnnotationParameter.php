@@ -23,16 +23,9 @@ class AnnotationParameter implements IAnnotationType {
         return $this->defaultValueAvailable;
     }
 
-    /**
-     * @param mixed $value
-     */
     public function setDefaultValue($value): void {
         $this->defaultValue = $value;
     }
-
-    /**
-     * @return mixed
-     */
     public function getDefaultValue() {
         return $this->defaultValue;
     }

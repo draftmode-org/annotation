@@ -10,6 +10,13 @@ trait AnnotationTypeTrait {
     private ?string $type=null;
     private ?string $declaringClass=null;
 
+    private ?string $patterns=null;
+    private ?string $format=null;
+    private ?int $minLength=null;
+    private ?int $maxLength=null;
+    private ?int $minItems=null;
+    private ?int $maxItems=null;
+
     public function __construct (string $name) {
         $this->name = $name;
     }
@@ -57,5 +64,47 @@ trait AnnotationTypeTrait {
     }
     public function getDeclaringClass() : ?string {
         return $this->declaringClass;
+    }
+
+    public function setPatterns(?string $patterns) : void {
+        $this->patterns = $patterns;
+    }
+    public function getPatterns(): ?string {
+        return $this->patterns;
+    }
+
+    public function setFormat(?string $format) : void {
+        $this->format = $format;
+    }
+    public function getFormat(): ?string {
+        return $this->format;
+    }
+
+    public function setMinLength(?int $minLength): void {
+        $this->minLength = $minLength;
+    }
+    public function getMinLength(): ?int {
+        return $this->minLength;
+    }
+
+    public function setMaxLength(?int $maxLength): void {
+        $this->maxLength = $maxLength;
+    }
+    public function getMaxLength(): ?int {
+        return $this->maxLength;
+    }
+
+    public function setMinItems(?int $minItems): void {
+        $this->minItems = $minItems;
+    }
+    public function getMinItems(): ?int {
+        return $this->minItems;
+    }
+
+    public function setMaxItems(?int $maxItems): void {
+        $this->maxItems = $maxItems;
+    }
+    public function getMaxItems(): ?int {
+        return $this->maxItems;
     }
 }
